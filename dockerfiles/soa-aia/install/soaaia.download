@@ -1,0 +1,15 @@
+#
+# Oracle SOA Suite Quick Start and AIA Comms PIP
+# OTN      : http://www.oracle.com/technetwork/middleware/soasuite/overview
+# Download : http://edelivery.oracle.com
+#
+#  - V983385-01_2of2.zip - Oracle Fusion Middleware 12c (12.2.1.4.0) SOA Quick Start for (Linux x86-64)
+#  - V983385-01_1of2.zip - Oracle Fusion Middleware 12c (12.2.1.4.0) SOA Quick Start for (Linux x86-64)
+#
+
+fmw_12.2.1.4.0_soa_quickstart.jar
+fmw_12.2.1.4.0_soa_quickstart2.jar
+comms_home_installer_generic.jar
+
+
+
