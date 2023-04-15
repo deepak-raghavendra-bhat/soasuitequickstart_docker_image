@@ -36,7 +36,8 @@ RUN mkdir -p /u01 && \
 # -------------------------------------------------------------
 USER root
 ENV FMW_JAR1=fmw_12.2.1.4.0_soa_quickstart.jar \
-    FMW_JAR2=fmw_12.2.1.4.0_soa_quickstart2.jar
+    FMW_JAR2=fmw_12.2.1.4.0_soa_quickstart2.jar \
+    AIA_JAR=comms_home_installer_generic.jar
 
 #
 # Copy installers and patches for install
@@ -79,6 +80,18 @@ RUN patchzips=`ls /u01/patches/p*.zip 2>/dev/null`; \
       echo -e "\nNo patches present in patches directory. Skipping patch application."; \
     fi
 
+#
+# AIA install
+# -----------------------------------
+
+ENV AIA_HOME=/u01/oracle/aia \
+    USER_MEM_ARGS="-Djava.security.egd=file:/dev/./urandom" \
+    PATH=$PATH:${JAVA_HOME}/bin
+
+USER oracle
+RUN cd /u01 && \
+  $JAVA_HOME/bin/java -jar $AIA_JAR -silent -invPtrLoc /u01/oraInst.loc ORACLE_HOME=$AIA_HOME
+
 
 #
 # Rebuild from base image
@@ -110,7 +123,7 @@ COPY --from=builder --chown=oracle:oracle /u01/oracle /u01/oracle
 # Install the required packages
 # -----------------------------
 USER root
-RUN yum install -y hostname ant xorg-x11-apps vim nano && \
+RUN yum install -y hostname ant xorg-x11-apps vim nano git && \
     rm -rf /var/cache/yum
 
 
