@@ -84,13 +84,9 @@ RUN patchzips=`ls /u01/patches/p*.zip 2>/dev/null`; \
 # AIA install
 # -----------------------------------
 
-ENV AIA_HOME=/u01/oracle/aia \
-    USER_MEM_ARGS="-Djava.security.egd=file:/dev/./urandom" \
-    PATH=$PATH:${JAVA_HOME}/bin
-
 USER oracle
 RUN cd /u01 && \
-  $JAVA_HOME/bin/java -jar $AIA_JAR -silent -invPtrLoc /u01/oraInst.loc ORACLE_HOME=$AIA_HOME
+  $JAVA_HOME/bin/java -jar $AIA_JAR -silent -invPtrLoc /u01/oraInst.loc ORACLE_HOME=/u01/oracle/aia
 
 
 #
@@ -132,5 +128,5 @@ RUN yum install -y hostname ant xorg-x11-apps vim nano git && \
 # 
 USER oracle
 WORKDIR $ORACLE_HOME
-CMD ["/u01/oracle/jdeveloper/jdev/bin/jdev"]
+CMD ["/bin/bash"]
 
